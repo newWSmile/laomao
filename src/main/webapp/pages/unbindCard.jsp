@@ -15,6 +15,7 @@
 		<div class="row clearfix">
 			<div class="col-md-12 column">
 				<h3>解绑银行卡页面</h3>
+				<span>测试提交</span>
 				<form id="form"
 					action="${contextPath}/gateway/personal_unbind_bankcard_expand.do"
 					method="post" target="_blank">
