@@ -16,7 +16,7 @@
 			<div class="col-md-12 column">
 				<h3>修改密码页面</h3>
 				<form id="form"
-					action="${contextPath}/gateway/resetPassword.do"
+					action="${contextPath}/gateway/updatePassword.do"
 					method="post" target="_blank">
 					<input type="hidden" id="host" name="host">
 					<div class="form-group">
