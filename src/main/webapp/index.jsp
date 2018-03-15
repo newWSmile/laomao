@@ -31,7 +31,6 @@
 					<li><a href="pages/freeze.jsp">资金冻结处理</a></li>
 					<li><a href="pages/unfreeze.jsp">解冻资金处理</a></li>
 					<li><a href="pages/unfreeze_trade_password.jsp">交易密码解冻</a></li>
-					<span>测试一下</span>
 				</ul>
 			</div>
 		</div>
