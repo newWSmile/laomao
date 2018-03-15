@@ -101,6 +101,71 @@ public class GatewayController {
     }
     
     /**
+     * 提现接口<br>
+     * <功能详细描述>
+     *
+     * @param request
+     * @return
+     * 
+     * @return ModelAndView [返回类型说明]
+     * @throws [异常类型] [异常说明]
+     * @see [类、类#方法、类#成员]
+     * @version [版本号, 2018年3月15日]
+     * @author Jane.zhu
+     */
+    @RequestMapping("/doWithdraw.do")
+    public ModelAndView doWithdraw(HttpServletRequest request) {
+        // 获取properties参数
+        AppConfig config = AppConfig.getConfig();
+        // 定义reqData参数集合
+        Map<String, Object> reqData = new HashMap<String, Object>();
+
+        // 前台获取参数
+        String platformUserNo = request.getParameter("platformUserNo");
+        String expired = request.getParameter("expired");
+        String redirectUrl = request.getParameter("redirectUrl");
+        String withdrawType = request.getParameter("withdrawType");
+        String withdrawForm = request.getParameter("withdrawForm");
+        String amount = request.getParameter("amount");
+        String commission = request.getParameter("commission");
+
+        // 后台生成
+        String requestNo = format.format(new Date());
+
+        reqData.put("platformUserNo", platformUserNo);
+        reqData.put("requestNo", requestNo);
+        reqData.put("commission", commission);
+        reqData.put("expired", expired);
+        reqData.put("redirectUrl", redirectUrl);
+        reqData.put("withdrawType", withdrawType);
+        reqData.put("withdrawForm", withdrawForm);
+        reqData.put("amount", amount);
+        reqData.put("commission", commission);
+
+        // 计算页面过期时间 当前时间增加30分钟
+        DateTime dateTime = new DateTime();
+        reqData.put("expired",
+                dateTime.plusMinutes(30).toString("yyyyMMddHHmmss"));
+
+        // 必须添加的参数
+        reqData.put("timestamp", requestNo);
+
+        Map<String, String> result = null;
+        try {
+            result = AppUtil.createPostParam("WITHDRAW", reqData);
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        }
+
+        String url = config.getUrl() + GatewayController.GATEWAY;
+
+        return new ModelAndView("reqeust/gatewayPost").addObject("result",
+                result).addObject("url", url);
+    }
+    
+    
+    
+    /**
      * 
      * 个人绑卡注册<br>
      * 用户在网贷平台注册完成后，网贷平台引导个人用户 跳转到存管系统页面填写四要素信息、设置交易密码、进行银行卡及身份鉴权， 
@@ -421,7 +486,62 @@ public class GatewayController {
                 result).addObject("url", url);
     }
     
-    
+    /**
+     * 
+     * 重置交易密码<br>
+     * 平台调用该接口引导用户跳转至存管页面，输入原交易密码或银行卡信息认证校验身份，校验通过后设置新的交易密码
+     * attention: 
+     *   R1.用户可以在页面上选择忘记原密码或记得原密码；
+     *   R2.如果用户选择记得原密码，则输入原密码验证，并设置新密码，原密码校验通过则新密码设置成功；
+     *   R3.已绑卡个人用户选择忘记原密码，若该用户绑定银行卡为四要素鉴权通过，则用户输入完整银行卡号，通过银行预留手机号进行短信验证，验证通过后设置新密码； 
+     *   R4.已绑卡企业用户选择忘记密码，则用户输入完整银行对公号，通过企业联系人手机号进行短信验证，验证通过后设置新密码；
+     *   R5.如果用户未绑定银行卡或银行对公号，则提示用户未绑定银行卡，平台需引导用户绑定银行卡或银行对公号，然后再进行密码修改；
+     *
+     * @param request
+     * @return
+     * 
+     * @return ModelAndView [返回类型说明]
+     * @throws [异常类型] [异常说明]
+     * @see [类、类#方法、类#成员]
+     * @version [版本号, 2018年3月14日]
+     * @author Smile.wang
+     */
+    @RequestMapping("/updatePassword.do")
+    public ModelAndView resetPassword(HttpServletRequest request) {
+        // 获取properties参数
+        AppConfig config = AppConfig.getConfig();
+        // 定义reqData参数集合
+        Map<String, Object> reqData = new HashMap<String, Object>();
+        
+        // 前台获取参数
+        String platformUserNo = request.getParameter("platformUserNo");
+        String redirectUrl = request.getParameter("redirectUrl");
+        
+        // 后台生成
+        String requestNo = format.format(new Date());
+        
+        reqData.put("platformUserNo", platformUserNo);
+        reqData.put("requestNo", requestNo);
+        reqData.put("redirectUrl", redirectUrl);
+        
+        // 计算页面过期时间 当前时间增加30分钟
+        DateTime dateTime = new DateTime();
+        reqData.put("expired",
+                dateTime.plusMinutes(30).toString("yyyyMMddHHmmss"));
+        
+        // 必须添加的参数
+        reqData.put("timestamp", requestNo);
+        
+        Map<String, String> result = null;
+        try {
+            result = AppUtil.createPostParam("RESET_PASSWORD", reqData);
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        }
+        String url = config.getUrl() + GatewayController.GATEWAY;
+        return new ModelAndView("reqeust/gatewayPost").addObject("result",
+                result).addObject("url", url);
+    }
     
     
 }
