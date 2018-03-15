@@ -23,11 +23,11 @@
 <!--           </div> -->
           <div class="form-group">
             <label for="platformUserNo">platformUserNo</label><input
-              type="text" class="form-control" id="platformUserNo" name="platformUserNo" value="tender0" />
+              type="text" class="form-control" id="platformUserNo" name="platformUserNo" value="7000002954" />
           </div>
                    <div class="form-group">
             <label for="amount">amount</label><input
-              type="text" class="form-control" id="amount" name="amount" value="0.01"/>
+              type="text" class="form-control" id="amount" name="amount" value="100.00"/>
           </div>
           		<div class="form-group">
 					<label for="commission">commission</label><input type="text"
@@ -35,7 +35,7 @@
 				</div>
           <div class="form-group">
             <label for="expectPayCompany">expectPayCompany</label><input type="text"
-              class="form-control" id="expectPayCompany" name="expectPayCompany" value="FUIOU" />
+              class="form-control" id="expectPayCompany" name="expectPayCompany" value="YEEPAY" />
           </div>
           <div class="form-group">
           <label for="rechargeWay">rechargeWay</label><input type="text"

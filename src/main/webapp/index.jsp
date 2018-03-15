@@ -21,6 +21,7 @@
 					<li><a href="pages/sync_transaction.jsp">单笔交易测试</a></li>
 					<li><a href="pages/async_transaction.jsp">批量交易测试</a></li>
 					<li><a href="pages/recharge.jsp">充值</a></li>
+					<li><a href="pages/recharge.jsp">提现</a></li>
 					<li><a href="pages/register.jsp">开户</a></li>
 					<li><a href="pages/bindCard.jsp">绑卡</a></li>
 					<li><a href="pages/unbindCard.jsp">解绑</a></li>
@@ -31,6 +32,7 @@
 					<li><a href="pages/freeze.jsp">资金冻结处理</a></li>
 					<li><a href="pages/unfreeze.jsp">解冻资金处理</a></li>
 					<li><a href="pages/unfreeze_trade_password.jsp">交易密码解冻</a></li>
+					<li><a href="pages/updatePassword.jsp">修改交易密码</a></li>
 				</ul>
 			</div>
 		</div>
